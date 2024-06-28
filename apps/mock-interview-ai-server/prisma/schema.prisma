@@ -6,3 +6,44 @@ datasource db {
 generator client {
   provider = "prisma-client-js"
 }
+
+model Question {
+  content    String?
+  createdAt  DateTime                @default(now())
+  difficulty EnumQuestionDifficulty?
+  id         String                  @id @default(cuid())
+  updatedAt  DateTime                @updatedAt
+}
+
+model Interview {
+  createdAt   DateTime  @default(now())
+  duration    Int?
+  id          String    @id @default(cuid())
+  scheduledAt DateTime?
+  title       String?
+  updatedAt   DateTime  @updatedAt
+}
+
+model Answer {
+  content     String?
+  createdAt   DateTime  @default(now())
+  id          String    @id @default(cuid())
+  submittedAt DateTime?
+  updatedAt   DateTime  @updatedAt
+}
+
+model User {
+  createdAt DateTime @default(now())
+  email     String?  @unique
+  firstName String?
+  id        String   @id @default(cuid())
+  lastName  String?
+  password  String
+  roles     Json
+  updatedAt DateTime @updatedAt
+  username  String   @unique
+}
+
+enum EnumQuestionDifficulty {
+  Option1
+}
